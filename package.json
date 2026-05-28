@@ -1,0 +1,32 @@
+{
+  "name": "javascript-coding-exam",
+  "version": "1.0.0",
+  "description": "A collection of coding exercises from scratch for learning JavaScript algorithms and problem-solving",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:exercise": "jest exercises/01-gradebook-manager"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "collectCoverage": false
+  },
+  "keywords": [
+    "javascript",
+    "coding",
+    "exercises",
+    "education",
+    "algorithms",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
