@@ -99,6 +99,10 @@ javascript-coding-exam/
 | 04 | Vet Clinic System        | Clases, Map, Set, Logic, Algoritmos| Avanzado           | 50-70 min     |
 | 05 | Pet Breed API            | API Integration, Async, Closures   | Avanzado           | 50-70 min     |
 | 06 | Gym Membership Engine    | Clases, Herencia, Map, Async, Logic| Avanzado           | 60-90 min     |
+| 07 | Real Estate Rental       | Clases, Algoritmos, Fechas, Logic  | Avanzado           | 75-90 min     |
+| 08 | Stock Portfolio Tracker  | Clases, Map, Set, FIFO, Algoritmos | Avanzado           | 75-90 min     |
+| 09 | Event Ticketing Platform | Clases, Set, Map, Logic, Algoritmos| Avanzado           | 75-90 min     |
+| 10 | Hospital Scheduling      | Clases, Algoritmos, API, Fechas    | Avanzado           | 90-120 min    |
 
 ---
 
