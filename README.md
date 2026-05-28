@@ -89,6 +89,19 @@ javascript-coding-exam/
 
 ---
 
+## Ejercicios Disponibles
+
+| #  | Nombre                   | Categoria                          | Nivel              | Tiempo Est.   |
+|----|--------------------------|------------------------------------|--------------------|---------------|
+| 01 | Gradebook Manager        | Arrays, Objects, Numbers           | Intermedio         | 25-40 min     |
+| 02 | Insurance Policy Manager | Clases, Herencia, Operadores, Logic| Intermedio-Avanzado| 40-60 min     |
+| 03 | Body Metrics Tracker     | Clases, Operadores, Metodos, Numbers| Intermedio        | 35-50 min     |
+| 04 | Vet Clinic System        | Clases, Map, Set, Logic, Algoritmos| Avanzado           | 50-70 min     |
+| 05 | Pet Breed API            | API Integration, Async, Closures   | Avanzado           | 50-70 min     |
+| 06 | Gym Membership Engine    | Clases, Herencia, Map, Async, Logic| Avanzado           | 60-90 min     |
+
+---
+
 ## Flujo de Trabajo para el Estudiante
 
 1. Lee el `README.md` del ejercicio.
