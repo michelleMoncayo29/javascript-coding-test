@@ -12,23 +12,30 @@
 // metodo getClaimsTotal() que suma todos los montos de los reclamos.
 class Policy {
   constructor({ policyNumber, holderName, startDate, endDate, basePremium, deductible }) {
-    throw new Error('Not implemented');
+    this.policyNumber = policyNumber;
+    this.holderName = holderName;
+    this.startDate = new Date(startDate);
+    this.endDate = new Date(endDate);
+    this.basePremium = basePremium;
+    this.deductible = deductible;
+    this.claims = [];
   }
 
   get type() {
-    throw new Error('Not implemented');
+    return 'GENERIC';
   }
 
   isActive(referenceDate = new Date()) {
-    throw new Error('Not implemented');
+    const date = new Date(referenceDate);
+    return date >= this.startDate && date <= this.endDate;
   }
 
   addClaim(claim) {
-    throw new Error('Not implemented');
+    this.claims.push({ ...claim, date: new Date(claim.date) });
   }
 
   getClaimsTotal() {
-    throw new Error('Not implemented');
+    return this.claims.reduce((total, claim) => total + claim.amount, 0);
   }
 }
 
