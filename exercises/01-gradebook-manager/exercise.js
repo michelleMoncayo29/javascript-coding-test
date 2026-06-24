@@ -47,54 +47,65 @@ function getPassingStudents(students, minScore) {
 // lowest: promedio mas bajo de la clase
 // classAverage: promedio de TODOS los scores de TODOS los estudiantes
 function getClassStats(students) {
-    if (students.length === 0) {
+	if (students.length === 0) {
         return { highest: 0, lowest: 0, classAverage: 0 };
     }
-    
-    // console.log(students);
-    const averages = [];
+
+	const averages = [];
     for (const student of students) {
-        const average = student.scores;
+		const average = student.scores;
         averages.push(average);
     }
+	console.log("averages", averages);
 
-    const puntosMaximos = []
-    // let totalScores = 0;
+    const puntosMaximos = [];
+    const allScores = [];
+
     for (let i = 0; i < averages.length; i++) {
         const arrStudentScores = averages[i];
-        let suma = 0;
+        let sum = 0;
         for (let j = 0; j < arrStudentScores.length; j++) {
             const score = arrStudentScores[j];
-            suma += score;
+            sum += score;
+            allScores.push(score); // Correcto: guardas cada nota individual
         }
-        const average = suma / arrStudentScores.length;
-        puntosMaximos.push(average);
+        const average = sum / arrStudentScores.length;
+        puntosMaximos.push(average); // Correcto: guardas el promedio de cada alumno
     }
 
+	console.log("todos los scores", allScores);
 
     const highest = Math.max(...puntosMaximos);
     const lowest = Math.min(...puntosMaximos);
-    console.log(highest, lowest);
 
-    // // console.log(averages);
-    // // console.log(highest);
-    // // console.log(lowest);
-    // const classAverage = calculateAverage(students.flatMap(student => student.scores));
+    let totalSumScores = 0;
+    for (let i = 0; i < allScores.length; i++) {
+        totalSumScores += allScores[i];
+	}
+	
+    const classAverage = totalSumScores / allScores.length;
 
-    // return { highest, lowest, classAverage };
+
+    return { 
+        highest: highest, 
+        lowest: lowest, 
+        classAverage: classAverage 
+    };
 }
-
-getClassStats([
-  { name: 'Ana', scores: [90, 90, 90] },
-  { name: 'Luis', scores: [60, 60, 60] },
-  { name: 'Sofia', scores: [80, 80, 80] },
-]);
 
 // TODO: Retorna un objeto con la cantidad de estudiantes por cada letra:
 // { A: number, B: number, C: number, D: number, F: number }
 // Usa calculateAverage y getLetterGrade para cada estudiante.
 function getGradeDistribution(students) {
-  throw new Error("Not implemented");
+  const distribution = { A: 0, B: 0, C: 0, D: 0, F: 0 };
+  
+	students.forEach((student) => {
+	  const average = calculateAverage(student.scores);
+	  const grade = getLetterGrade(average);
+	  distribution[grade]++;
+	});
+  
+	return distribution;
 }
 
 // TODO: Calcula el promedio ponderado a partir de un array de categorias.
@@ -102,7 +113,28 @@ function getGradeDistribution(students) {
 // Retorna el promedio ponderado normalizado por la suma de pesos.
 // Si el array esta vacio, retorna 0.
 function getWeightedScore(categories) {
-  throw new Error("Not implemented");
+	if(categories.length === 0) {
+		return 0;
+	}
+
+
+	// 2. Creamos dos variables "acumuladoras" que empiezan en 0
+	let totalWeighted = 0;
+	let totalWeight = 0;
+
+	// 3. Recorremos cada categoría una por una con un bucle for
+	for (let i = 0; i < categories.length; i++) {
+		const cat = categories[i];
+
+		// Multiplicamos la nota por su peso y lo sumamos al total ponderado
+		totalWeighted += cat.score * cat.weight;
+
+		// Sumamos el peso al total de pesos
+		totalWeight += cat.weight;
+	}
+
+	// 4. Hacemos la división final
+	return totalWeighted / totalWeight;
 }
 
 // TODO: Retorna los top n estudiantes con mejor promedio.
@@ -110,7 +142,15 @@ function getWeightedScore(categories) {
 // ordenados de mayor a menor promedio.
 // Cada estudiante: { name: string, scores: number[] }
 function getTopStudents(students, n) {
-  throw new Error("Not implemented");
+  if (n === 0 || students.length === 0) {
+	  return [];
+	}
+  
+	const sorted = [...students].sort((a, b) => {
+	  return calculateAverage(b.scores) - calculateAverage(a.scores);
+	});
+  
+	return sorted.slice(0, n);
 }
 
 // TODO: Calcula la mediana de un array de numeros.
@@ -118,7 +158,18 @@ function getTopStudents(students, n) {
 // Si es par, retorna el promedio de los dos valores centrales.
 // Si el array esta vacio, retorna 0.
 function getMedianScore(scores) {
-  throw new Error("Not implemented");
+  if (scores.length === 0) {
+    return 0;
+  }
+
+  const sorted = [...scores].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+
+  if (sorted.length % 2 !== 0) {
+    return sorted[mid];
+  }
+
+  return (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
 // Exportar para testing
