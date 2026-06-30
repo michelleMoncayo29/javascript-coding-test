@@ -45,17 +45,30 @@ class Policy {
 // Metodo getRiskFactor(): retorna un numero >= 1.0 que representa el riesgo del asegurado.
 // Factores a considerar: antiguedad del vehiculo, edad del conductor, historial de accidentes.
 class AutoPolicy extends Policy {
-  constructor(data) {
-    throw new Error('Not implemented');
-  }
+    constructor(data) {
+        super(data);
+        this.vehicleYear = data.vehicleYear;
+        this.driverAge = data.driverAge;
+        this.hasAccidentHistory = data.hasAccidentHistory ?? false;
+    }
 
-  get type() {
-    throw new Error('Not implemented');
-  }
+    get type() {
+        return 'AUTO';
+    }
 
-  getRiskFactor() {
-    throw new Error('Not implemented');
-  }
+    getRiskFactor() {
+        // El riesgo se calcula multiplicando factores independientes entre si.
+        let factor = 1.0;
+        // antiguedad del carro: si es mayor a 10 años, factor 1.3; si es mayor a 5 años, factor 1.15; sino 1.0
+        const vehicleAge = new Date().getFullYear() - this.vehicleYear;
+        if (vehicleAge > 10) factor *= 1.3;
+        else if (vehicleAge > 5) factor *= 1.15;
+        // edad del conductor: si es menor a 25 o mayor a 75, factor 1.25; sino 1.0
+        if (this.driverAge < 25 || this.driverAge > 75) factor *= 1.25;
+        if (this.hasAccidentHistory) factor *= 1.5;
+
+        return parseFloat(factor.toFixed(4));
+    }
 }
 
 // TODO: Subclase para polizas de hogar.
@@ -63,17 +76,25 @@ class AutoPolicy extends Policy {
 // Getter 'type' debe retornar 'HOME'.
 // Metodo getRiskFactor(): considera antiguedad del inmueble y zona de riesgo.
 class HomePolicy extends Policy {
-  constructor(data) {
-    throw new Error('Not implemented');
-  }
+    constructor(data) {
+        super(data);
+        this.propertyValue = data.propertyValue;
+        this.propertyAgeYears = data.propertyAgeYears;
+        this.zone = data.zone; // 'low' | 'medium' | 'high'
+    }
 
-  get type() {
-    throw new Error('Not implemented');
-  }
+    get type() {
+        return 'HOME';
+    }
 
-  getRiskFactor() {
-    throw new Error('Not implemented');
-  }
+    getRiskFactor() {
+        let factor = 1.0;
+        if (this.propertyAgeYears > 30) factor *= 1.4;
+        else if (this.propertyAgeYears > 15) factor *= 1.2;
+        const zoneFactors = { low: 1.0, medium: 1.2, high: 1.6 };
+        factor *= zoneFactors[this.zone] ?? 1.0;
+        return parseFloat(factor.toFixed(4));
+    }
 }
 
 // TODO: Subclase para polizas de vida.
@@ -81,17 +102,26 @@ class HomePolicy extends Policy {
 // Getter 'type' debe retornar 'LIFE'.
 // Metodo getRiskFactor(): considera edad del asegurado, si es fumador y condiciones preexistentes.
 class LifePolicy extends Policy {
-  constructor(data) {
-    throw new Error('Not implemented');
-  }
+    constructor(data) {
+        super(data);
+        this.insuredAge = data.insuredAge;
+        this.smoker = data.smoker ?? false;
+        this.preExistingConditions = data.preExistingConditions ?? false;
+        this.coverageAmount = data.coverageAmount;
+    }
 
-  get type() {
-    throw new Error('Not implemented');
-  }
+    get type() {
+        return 'LIFE';
+    }
 
-  getRiskFactor() {
-    throw new Error('Not implemented');
-  }
+    getRiskFactor() {
+        let factor = 1.0;
+        if (this.insuredAge < 30) factor *= 1.1;
+        else if (this.insuredAge > 65) factor *= 1.4;
+        if (this.smoker) factor *= 1.3;
+        if (this.preExistingConditions) factor *= 1.6;
+        return parseFloat(factor.toFixed(4));
+    }
 }
 
 // TODO: Procesa un reclamo contra una poliza.
